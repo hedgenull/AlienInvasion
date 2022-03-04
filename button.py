@@ -1,5 +1,3 @@
-import imp
-
 import pygame.font
 
 
