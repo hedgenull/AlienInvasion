@@ -16,6 +16,7 @@ class AlienInvasion:
     def __init__(self):
         """Initialize the game and create game resources."""
         pygame.init()
+        pygame.mixer.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
@@ -110,6 +111,9 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            pygame.mixer.music.load("sounds/laser.mp3")
+            pygame.mixer.music.set_volume(0.7)
+            pygame.mixer.music.play()
 
     def _update_bullets(self):
         """Update positions of bullets and get rid of old ones."""
@@ -131,6 +135,9 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
+                pygame.mixer.music.load("sounds/alien_die.wav")
+                pygame.mixer.music.set_volume(0.7)
+                pygame.mixer.music.play()
             self.sb.prep_score()
 
         if not self.aliens:
@@ -208,6 +215,9 @@ class AlienInvasion:
             self.ship.center_ship()
 
             # Pause.
+            pygame.mixer.music.load("sounds/ship_die.mp3")
+            pygame.mixer.music.set_volume(0.7)
+            pygame.mixer.music.play()
             sleep(0.5)
         else:
             self.stats.game_active = False
