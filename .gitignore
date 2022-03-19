@@ -3,4 +3,4 @@ __pycache__
 *.pyc
 rocket
 sideways-shooter
-high_score.txt
+*.txt
