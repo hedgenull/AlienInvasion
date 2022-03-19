@@ -94,6 +94,8 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+            with open("high_score.txt", "w") as f:
+                f.write(str(self.stats.high_score))
             sys.exit()
         elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
             self._fire_bullet()
@@ -138,6 +140,7 @@ class AlienInvasion:
                 pygame.mixer.music.load("sounds/alien_die.wav")
                 pygame.mixer.music.play()
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             # Destroy existing bullets and create a new fleet.
